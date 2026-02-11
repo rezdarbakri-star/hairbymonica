@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hair by Monica — Exklusiv Frisör i Solna</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #F7F3EE;
+  --warm-white: #FDFBF8;
+  --champagne: #C9A96E;
+  --champagne-light: #DFC9A0;
+  --champagne-dark: #A8854A;
+  --charcoal: #2A2522;
+  --soft-brown: #6B5B4E;
+  --muted: #9A8E84;
+  --rose: #C4A08A;
+  --gloss-1: rgba(255, 220, 180, 0.15);
+  --gloss-2: rgba(201, 169, 110, 0.1);
+  --gloss-3: rgba(220, 190, 160, 0.08);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  font-weight: 300;
+}
+
+/* ============================================
+   GLOSS / SHIMMER SYSTEM
+   ============================================ */
+
+/* Floating gloss orbs — like highlighter on skin */
+.gloss-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0;
+  animation: glossFloat 12s ease-in-out infinite;
+}
+.gloss-orb-1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,215,170,0.2), transparent 70%);
+  top: 10%; left: -5%;
+  animation-delay: 0s;
+}
+.gloss-orb-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(201,169,110,0.15), transparent 70%);
+  top: 40%; right: -8%;
+  animation-delay: -4s;
+}
+.gloss-orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(220,190,160,0.12), transparent 70%);
+  bottom: 15%; left: 20%;
+  animation-delay: -8s;
+}
+.gloss-orb-4 {
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(196,160,138,0.14), transparent 70%);
+  top: 60%; right: 25%;
+  animation-delay: -2s;
+  animation-duration: 15s;
+}
+@keyframes glossFloat {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
+  25% { opacity: 0.6; transform: translate(30px, -20px) scale(1.1); }
+  50% { opacity: 0.8; transform: translate(-10px, 20px) scale(1.05); }
+  75% { opacity: 0.5; transform: translate(20px, 10px) scale(0.95); }
+}
+
+/* Shimmer line — like light catching a gloss surface */
+.shimmer-line {
+  position: fixed;
+  width: 200%;
+  height: 1px;
+  top: 0;
+  left: -50%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    transparent 40%, 
+    rgba(201,169,110,0.3) 48%, 
+    rgba(255,230,200,0.6) 50%, 
+    rgba(201,169,110,0.3) 52%, 
+    transparent 60%, 
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  animation: shimmerSweep 8s ease-in-out infinite;
+  opacity: 0.5;
+}
+@keyframes shimmerSweep {
+  0% { transform: translateX(-30%) rotate(25deg) translateY(0vh); }
+  100% { transform: translateX(30%) rotate(25deg) translateY(100vh); }
+}
+
+/* Gloss overlay for sections — like dewy skin finish */
+.gloss-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.gloss-overlay::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,235,210,0.15), transparent 70%);
+  filter: blur(40px);
+  animation: glossPulse 6s ease-in-out infinite;
+}
+.gloss-overlay::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.1), transparent 70%);
+  filter: blur(30px);
+  right: 10%;
+  bottom: 20%;
+  animation: glossPulse 8s ease-in-out infinite reverse;
+}
+@keyframes glossPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+/* Micro-sparkle particles */
+.sparkle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--champagne-light);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkleGlint var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+@keyframes sparkleGlint {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 0.7; transform: scale(1); }
+}
+
+/* ============================================
+   NAV
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s ease;
+}
+nav.scrolled {
+  background: rgba(253, 251, 248, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 1rem 3rem;
+  box-shadow: 0 1px 0 rgba(201, 169, 110, 0.15);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--charcoal);
+  text-decoration: none;
+  text-transform: uppercase;
+  z-index: 201;
+  position: relative;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--soft-brown);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--champagne);
+  transition: width 0.4s ease;
+}
+.nav-links a:hover { color: var(--champagne-dark); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: var(--charcoal) !important;
+  color: var(--cream) !important;
+  padding: 0.7rem 1.8rem !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+.nav-cta:hover::before { left: 100%; }
+.nav-cta:hover { background: var(--champagne-dark) !important; }
+.nav-cta::after { display: none !important; }
+
+/* MOBILE NAV - FIXED */
+.nav-toggle {
+  display: none;
+  width: 28px;
+  height: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 201;
+  position: relative;
+}
+.nav-toggle span {
+  width: 100%;
+  height: 1.5px;
+  background: var(--charcoal);
+  transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  display: block;
+  transform-origin: center;
+}
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* MOBILE OVERLAY MENU */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(253, 251, 248, 0.97);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  z-index: 199;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.mobile-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-menu-overlay a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  text-decoration: none;
+  color: var(--charcoal);
+  padding: 0.8rem 0;
+  letter-spacing: 0.05em;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  transition-delay: calc(var(--i) * 0.06s);
+  position: relative;
+}
+.mobile-menu-overlay.open a {
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-menu-overlay a:hover { color: var(--champagne-dark); }
+.mobile-menu-overlay a.mobile-cta {
+  margin-top: 2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: 1rem 3rem;
+}
+.mobile-menu-gloss {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.08), transparent 70%);
+  filter: blur(60px);
+  top: 20%;
+  right: -10%;
+  animation: glossPulse 6s ease-in-out infinite;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--cream);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 80%, rgba(201, 169, 110, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(196, 160, 138, 0.06) 0%, transparent 60%);
+}
+
+/* Hero gloss reflection */
+.hero-gloss {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-gloss-streak {
+  position: absolute;
+  width: 2px;
+  height: 150%;
+  background: linear-gradient(to bottom, transparent, rgba(255,230,200,0.4), rgba(201,169,110,0.2), transparent);
+  transform: rotate(20deg);
+  animation: glossStreak 6s ease-in-out infinite;
+  top: -25%;
+}
+.hero-gloss-streak:nth-child(1) { left: 25%; animation-delay: 0s; }
+.hero-gloss-streak:nth-child(2) { left: 55%; animation-delay: -2s; opacity: 0.5; }
+.hero-gloss-streak:nth-child(3) { left: 78%; animation-delay: -4s; opacity: 0.3; }
+@keyframes glossStreak {
+  0%, 100% { opacity: 0; transform: rotate(20deg) translateY(0); }
+  30% { opacity: 1; }
+  70% { opacity: 1; }
+  50% { transform: rotate(20deg) translateY(-3%); }
+}
+
+.hero-decoration {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: heroCircle 20s linear infinite;
+  /* Gloss ring effect */
+  box-shadow: 
+    0 0 60px rgba(201,169,110,0.03),
+    inset 0 0 60px rgba(201,169,110,0.02);
+}
+.hero-decoration:nth-child(3) {
+  width: 650px;
+  height: 650px;
+  animation-duration: 30s;
+  animation-direction: reverse;
+  border-color: rgba(201, 169, 110, 0.05);
+}
+@keyframes heroCircle {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+.hero-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 2rem;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.2s;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.4s;
+}
+.hero-title em {
+  font-style: italic;
+  /* Gloss text effect */
+  background: linear-gradient(135deg, var(--champagne-dark) 0%, #D4B87A 40%, #F0D8A0 50%, #D4B87A 60%, var(--champagne-dark) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 1s ease forwards 0.4s, glossText 4s ease-in-out infinite 1.5s;
+}
+@keyframes glossText {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.6s;
+}
+.hero-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.8s;
+  margin-bottom: 2.5rem;
+}
+.hero-stars { color: var(--champagne); font-size: 1rem; letter-spacing: 0.1em; }
+.hero-rating-text {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-btn {
+  display: inline-block;
+  padding: 1rem 3rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.4s ease;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1s;
+  position: relative;
+  overflow: hidden;
+}
+/* Button gloss sweep */
+.hero-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: btnGloss 3s ease-in-out infinite 2s;
+}
+@keyframes btnGloss {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+.hero-btn:hover {
+  background: var(--champagne-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(201, 169, 110, 0.25), 0 0 80px rgba(201,169,110,0.08);
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.4s;
+}
+.scroll-indicator span {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--champagne), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+section { padding: 8rem 3rem; position: relative; }
+.section-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+.about-image-wrapper {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.about-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #C9A96E 0%, #DFC9A0 40%, #C4A08A 100%);
+  background-image: url('https://i.ibb.co/hxNNdqj2/Kund1.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+/* Gloss sheen on image */
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,240,220,0.2) 45%, rgba(255,255,255,0.1) 50%, transparent 65%);
+  animation: imageGloss 5s ease-in-out infinite;
+}
+@keyframes imageGloss {
+  0%, 100% { opacity: 0.5; transform: translateX(-10%); }
+  50% { opacity: 1; transform: translateX(10%); }
+}
+.about-image-accent {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid var(--champagne-light);
+  z-index: -1;
+}
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--soft-brown);
+  margin-bottom: 1.5rem;
+}
+.about-signature {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--champagne-dark);
+  margin-top: 2rem;
+}
+
+/* ============================================
+   MARQUEE
+   ============================================ */
+.marquee-section {
+  padding: 3rem 0;
+  overflow: hidden;
+  background: var(--charcoal);
+  position: relative;
+}
+/* Gloss sheen over dark marquee */
+.marquee-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.04), transparent);
+  animation: marqueeGloss 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes marqueeGloss {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--champagne-light);
+  white-space: nowrap;
+  padding: 0 2rem;
+  opacity: 0.7;
+}
+.marquee-dot {
+  color: var(--champagne);
+  padding: 0 1.5rem;
+  opacity: 0.4;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================
+   SERVICES
+   ============================================ */
+.services-section {
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.services-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 5rem;
+}
+.services-header p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.service-card {
+  background: var(--warm-white);
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  transition: all 0.5s ease;
+  position: relative;
+  cursor: default;
+  overflow: hidden;
+}
+/* Gloss hover effect on service cards */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--champagne), transparent);
+  transition: width 0.5s ease;
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(201,169,110,0.04), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.service-card:hover::before { width: 80px; }
+.service-card:hover::after { opacity: 1; }
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 0 60px rgba(201,169,110,0.05);
+}
+.service-icon {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  color: var(--champagne);
+}
+.service-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  color: var(--charcoal);
+}
+.service-card p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.service-price {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--champagne-dark);
+  font-weight: 400;
+}
+
+/* ============================================
+   EXPERIENCE STRIP
+   ============================================ */
+.experience-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  gap: 2rem;
+  text-align: center;
+  position: relative;
+}
+.exp-item {}
+.exp-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--champagne-dark);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.exp-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Gloss divider between sections */
+.gloss-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, var(--champagne-light) 50%, transparent 90%);
+  opacity: 0.3;
+  position: relative;
+}
+.gloss-divider::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: var(--champagne);
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(201,169,110,0.3);
+  animation: dividerGlow 3s ease-in-out infinite;
+}
+@keyframes dividerGlow {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 10px rgba(201,169,110,0.2); }
+  50% { opacity: 1; box-shadow: 0 0 25px rgba(201,169,110,0.4); }
+}
+
+/* ============================================
+   REVIEWS
+   ============================================ */
+.reviews-section {
+  background: var(--charcoal);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+/* Subtle glow backdrop in reviews */
+.reviews-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.06), transparent 70%);
+  top: 10%;
+  left: -10%;
+  filter: blur(60px);
+  animation: glossPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+.reviews-glow-2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,160,138,0.05), transparent 70%);
+  bottom: 5%;
+  right: -5%;
+  filter: blur(60px);
+  animation: glossPulse 10s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+.reviews-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+.reviews-header .section-eyebrow { color: var(--champagne-light); }
+.reviews-header .section-title { color: var(--cream); }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.review-card {
+  padding: 2.5rem;
+  border: 1px solid rgba(201, 169, 110, 0.12);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.01);
+}
+/* Gloss hover on review cards */
+.review-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.03), transparent);
+  transition: left 0.8s ease;
+}
+.review-card:hover::before { left: 100%; }
+.review-card:hover {
+  border-color: rgba(201,169,110,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(201,169,110,0.06);
+}
+.review-stars {
+  color: var(--champagne);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+}
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(247, 243, 238, 0.85);
+  margin-bottom: 1.5rem;
+}
+.review-author {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--champagne-light);
+  opacity: 0.7;
+}
+
+/* ============================================
+   GALLERY
+   ============================================ */
+.gallery-section { padding: 8rem 3rem; }
+.gallery-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+.gallery-header p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 300px 300px;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.gallery-item:nth-child(1) { grid-row: span 2; }
+.gallery-item:nth-child(4) { grid-row: span 2; }
+.gallery-item-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+.gallery-item:hover .gallery-item-inner { transform: scale(1.05); }
+/* Gallery gloss overlay */
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(42,37,34,0) 0%, rgba(42,37,34,0) 100%);
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-item:hover .gallery-item-overlay {
+  background: linear-gradient(135deg, rgba(42,37,34,0.1) 0%, rgba(201,169,110,0.08) 100%);
+}
+.gallery-item-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.gallery-item:hover .gallery-item-tag { opacity: 1; transform: translateY(0); }
+.gi-1 .gallery-item-inner { background: linear-gradient(135deg, #C9A96E, #DFC9A0); background-image: url('https://i.ibb.co/hxNNdqj2/Kund1.png'); background-size: cover; background-position: center; }
+.gi-2 .gallery-item-inner { background: linear-gradient(135deg, #A8854A, #C9A96E); background-image: url('https://i.ibb.co/PG4kPf75/Kund2.png'); background-size: cover; background-position: center; }
+.gi-3 .gallery-item-inner { background: linear-gradient(135deg, #C4A08A, #DFC9A0); background-image: url('https://i.ibb.co/S4r0J2vg/Kund3.png'); background-size: cover; background-position: center; }
+.gi-4 .gallery-item-inner { background: linear-gradient(135deg, #6B5B4E, #9A8E84); background-image: url('https://i.ibb.co/hxNNdqj2/Kund1.png'); background-size: cover; background-position: center top; }
+.gi-5 .gallery-item-inner { background: linear-gradient(135deg, #DFC9A0, #F7F3EE); background-image: url('https://i.ibb.co/PG4kPf75/Kund2.png'); background-size: cover; background-position: center top; }
+.gi-6 .gallery-item-inner { background: linear-gradient(135deg, #9A8E84, #C4A08A); background-image: url('https://i.ibb.co/S4r0J2vg/Kund3.png'); background-size: cover; background-position: center top; }
+
+.gallery-follow {
+  text-align: center;
+  margin-top: 3rem;
+}
+.gallery-follow a {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--champagne-dark);
+  text-decoration: none;
+  border-bottom: 1px solid var(--champagne-light);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+.gallery-follow a:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ============================================
+   REELS / VIDEO SECTION
+   ============================================ */
+.reels-section {
+  background: var(--charcoal);
+  padding: 8rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.reels-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+.reels-header .section-eyebrow { color: var(--champagne-light); }
+.reels-header .section-title { color: var(--cream); }
+.reels-header p {
+  color: rgba(247, 243, 238, 0.5);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.reels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.reel-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 9/16;
+  background: #1a1714;
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  transition: all 0.5s ease;
+}
+.reel-card:hover {
+  border-color: rgba(201, 169, 110, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 40px rgba(201,169,110,0.06);
+}
+.reel-thumb {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.reel-thumb-1 { background: linear-gradient(180deg, #3a302a 0%, #2a2220 50%, #1a1714 100%); background-image: url('https://i.ibb.co/hxNNdqj2/Kund1.png'); background-size: cover; background-position: center; }
+.reel-thumb-2 { background: linear-gradient(180deg, #3a302a 0%, #2a2220 50%, #1a1714 100%); background-image: url('https://i.ibb.co/PG4kPf75/Kund2.png'); background-size: cover; background-position: center; }
+.reel-thumb-3 { background: linear-gradient(180deg, #3a302a 0%, #2a2220 50%, #1a1714 100%); background-image: url('https://i.ibb.co/S4r0J2vg/Kund3.png'); background-size: cover; background-position: center; }
+/* Play icon overlay */
+.reel-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.reel-play-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(253, 251, 248, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.reel-play-icon::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--charcoal);
+  margin-left: 3px;
+}
+.reel-card:hover .reel-play-icon {
+  transform: scale(1.1);
+  background: rgba(201, 169, 110, 0.95);
+}
+.reel-card:hover .reel-play-icon::after {
+  border-color: transparent transparent transparent white;
+}
+/* Gloss reflection on reel cards */
+.reel-gloss {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(255,240,220,0.08) 0%, transparent 40%, transparent 60%, rgba(201,169,110,0.04) 100%);
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.reel-card:hover .reel-gloss { opacity: 1; }
+.reel-label {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s ease;
+}
+.reel-card:hover .reel-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reel-label span {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  background: rgba(42, 37, 34, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+/* Glow behind reels */
+.reels-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.05), transparent 70%);
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(60px);
+  animation: glossPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .reels-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    max-width: 100%;
+  }
+  .reel-card { border-radius: 10px; }
+  .reels-section { padding: 5rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .reels-grid { gap: 0.5rem; }
+  .reel-card { border-radius: 8px; }
+}
+
+/* ============================================
+   BOOKING CTA
+   ============================================ */
+.booking-section {
+  background: var(--cream);
+  padding: 10rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.booking-decoration {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border: 1px solid rgba(201, 169, 110, 0.06);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Big gloss glow behind CTA */
+.booking-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.1), rgba(255,220,180,0.05), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(60px);
+  animation: bookingGlow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes bookingGlow {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+.booking-content { position: relative; z-index: 2; }
+.booking-content .section-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 1rem;
+}
+.booking-content .section-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--champagne-dark) 0%, #D4B87A 40%, #F0D8A0 50%, #D4B87A 60%, var(--champagne-dark) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glossText 4s ease-in-out infinite;
+}
+.booking-subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.booking-btn {
+  display: inline-block;
+  padding: 1.2rem 4rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.booking-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: btnGloss 3s ease-in-out infinite;
+}
+.booking-btn:hover {
+  background: var(--champagne-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(201, 169, 110, 0.25), 0 0 80px rgba(201,169,110,0.1);
+}
+
+/* ============================================
+   FIND US
+   ============================================ */
+.find-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 500px;
+}
+.find-map {
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.find-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(201,169,110,0.03) 40px, rgba(201,169,110,0.03) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(201,169,110,0.03) 40px, rgba(201,169,110,0.03) 41px);
+}
+/* Subtle glow in map area */
+.find-map::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.08), transparent 70%);
+  filter: blur(40px);
+  animation: glossPulse 6s ease-in-out infinite;
+}
+.find-map-content {
+  position: relative;
+  text-align: center;
+  color: var(--cream);
+  z-index: 2;
+}
+.find-map-pin {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.find-map-content h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+.find-map-content p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: rgba(247, 243, 238, 0.6);
+}
+.find-map-content a {
+  color: var(--champagne-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+  transition: border-color 0.3s ease;
+}
+.find-map-content a:hover { border-color: var(--champagne); }
+.find-info {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+.find-info-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 0.6rem;
+}
+.find-info-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--charcoal);
+}
+.find-info-value a {
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.find-info-value a:hover { color: var(--champagne-dark); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--charcoal);
+  padding: 4rem 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Footer glow */
+footer::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  background: radial-gradient(ellipse, rgba(201,169,110,0.05), transparent);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(40px);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+.footer-links a {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247, 243, 238, 0.4);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover { color: var(--champagne); }
+.footer-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(201, 169, 110, 0.2);
+  margin: 0 auto 2rem;
+}
+.footer-copy {
+  font-size: 0.68rem;
+  color: rgba(247, 243, 238, 0.25);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* Cursor glow — follows mouse on desktop */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.06), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  filter: blur(20px);
+  opacity: 0;
+}
+.cursor-glow.active { opacity: 1; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  section { padding: 5rem 2rem; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid .review-card:last-child { grid-column: span 2; max-width: 500px; margin: 0 auto; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: 250px 250px; }
+  .gallery-item:nth-child(6) { display: none; }
+  .about { gap: 3rem; }
+  .cursor-glow { display: none; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .about { grid-template-columns: 1fr; }
+  .about-image-wrapper { max-height: 400px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .reviews-grid .review-card:last-child { grid-column: span 1; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 200px 200px; }
+  .gallery-item:nth-child(1) { grid-row: span 1; }
+  .gallery-item:nth-child(4) { grid-row: span 1; }
+  .gallery-item:nth-child(5), .gallery-item:nth-child(6) { display: none; }
+  .experience-strip { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .find-section { grid-template-columns: 1fr; }
+  .booking-section { padding: 6rem 2rem; }
+  .gloss-orb { display: none; }
+  .shimmer-line { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 3rem; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 250px; }
+  .mobile-menu-overlay a { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Gloss ambient system -->
+<div class="gloss-orb gloss-orb-1"></div>
+<div class="gloss-orb gloss-orb-2"></div>
+<div class="gloss-orb gloss-orb-3"></div>
+<div class="gloss-orb gloss-orb-4"></div>
+<div class="shimmer-line"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Hair by Monica</a>
+  <div class="nav-links">
+    <a href="#om">Om</a>
+    <a href="#tjanster">Tjänster</a>
+    <a href="#omdomen">Omdömen</a>
+    <a href="#galleri">Galleri</a>
+    <a href="#hitta">Hitta hit</a>
+    <a href="https://www.bokadirekt.se/places/hair-by-monica-55949" target="_blank" class="nav-cta">Boka tid</a>
+  </div>
+  <div class="nav-toggle" id="navToggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+  <div class="mobile-menu-gloss"></div>
+  <a href="#om" style="--i:0">Om mig</a>
+  <a href="#tjanster" style="--i:1">Tjänster</a>
+  <a href="#omdomen" style="--i:2">Omdömen</a>
+  <a href="#galleri" style="--i:3">Galleri</a>
+  <a href="#hitta" style="--i:4">Hitta hit</a>
+  <a href="https://www.bokadirekt.se/places/hair-by-monica-55949" target="_blank" class="mobile-cta" style="--i:5">Boka tid</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gloss">
+    <div class="hero-gloss-streak"></div>
+    <div class="hero-gloss-streak"></div>
+    <div class="hero-gloss-streak"></div>
+  </div>
+  <div class="hero-decoration"></div>
+  <div class="hero-decoration"></div>
+  
+  <!-- Sparkle particles in hero -->
+  <div class="sparkle-field" id="heroSparkles"></div>
+  
+  <div class="hero-content">
+    <p class="hero-eyebrow">Exklusiv frisör — Solna</p>
+    <h1 class="hero-title">Hair by <em>Monica</em></h1>
+    <p class="hero-subtitle">Din skönhet, min passion</p>
+    <div class="hero-rating">
+      <span class="hero-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="hero-rating-text">4.9 — 361 omdömen</span>
+    </div>
+    <a href="https://www.bokadirekt.se/places/hair-by-monica-55949" target="_blank" class="hero-btn">Boka via Bokadirekt</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scrolla</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="om" style="padding-top: 8rem; padding-bottom: 8rem;">
+  <div class="gloss-overlay"></div>
+  <div class="about">
+    <div class="about-image-wrapper reveal">
+      <div class="about-image"></div>
+      <div class="about-image-accent"></div>
+    </div>
+    <div class="about-text">
+      <p class="section-eyebrow reveal">Om mig</p>
+      <h2 class="section-title reveal reveal-delay-1">Kvalitet är mer<br>än bara ett ord</h2>
+      <p class="reveal reveal-delay-2">Jag är egenföretagare och driver mitt eget företag Hairbymoniicaa i SalongZax, Solna. Hos mig är kvalitet en passion och ett åtagande — varje detalj spelar roll.</p>
+      <p class="reveal reveal-delay-3">Varje färgning, klippning och styling är en möjlighet att framhäva er naturliga skönhet. När ni besöker mig vill jag att ni ska känna er hemma, avslappnade och i trygga händer.</p>
+      <p class="about-signature reveal reveal-delay-4">— Monica</p>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Balayage</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Klippning</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Färgning</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Slingor</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Styling</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Fransar & Bryn</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Balayage</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Klippning</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Färgning</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Slingor</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Styling</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Fransar & Bryn</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- Services -->
+<section id="tjanster" class="services-section">
+  <div class="gloss-overlay"></div>
+  <div class="services-header">
+    <p class="section-eyebrow reveal">Tjänster</p>
+    <h2 class="section-title reveal reveal-delay-1">Skräddarsydda<br>behandlingar</h2>
+    <p class="reveal reveal-delay-2">Allt från klippning och balayage till färgning och styling — anpassat efter dig och ditt hår.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">✂</span>
+      <h3>Klippning</h3>
+      <p>Kreativa och klassiska klippningar anpassade efter dina önskemål. Den perfekta stilen som passar ditt ansikte och din livsstil.</p>
+      <span class="service-price">Dam &amp; Herr</span>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">◆</span>
+      <h3>Balayage</h3>
+      <p>En naturlig övergång mellan din hårfärg och ljusa slingor. Signaturbehandling som skapar djup och dimension.</p>
+      <span class="service-price">Från 2 700 kr</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">◉</span>
+      <h3>Färgning & Slingor</h3>
+      <p>Professionell färgning som ger ditt hår ny glans och liv. Jämnt och naturligt resultat som framhäver din personliga stil.</p>
+      <span class="service-price">Från 890 kr</span>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">❋</span>
+      <h3>Styling</h3>
+      <p>Professionell styling för speciella tillfällen eller vardagsglamour. Hållbar och vacker look med de bästa teknikerna.</p>
+      <span class="service-price">Boka konsultation</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">✧</span>
+      <h3>Fransar & Bryn</h3>
+      <p>Forma och färga dina fransar och bryn för en mer definierad och polerad look som framhäver dina ansiktsdrag.</p>
+      <span class="service-price">Se prislista</span>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">♛</span>
+      <h3>Balayage + Klipp</h3>
+      <p>Komplett transformation — balayage kombinerat med klippning och styling för ett helhetsresultat du älskar.</p>
+      <span class="service-price">Från 2 900 kr</span>
+    </div>
+  </div>
+</section>
+
+<!-- Gloss divider -->
+<div class="gloss-divider"></div>
+
+<!-- Experience Strip -->
+<div class="experience-strip">
+  <div class="exp-item reveal">
+    <div class="exp-number">4.9</div>
+    <div class="exp-label">Snittbetyg</div>
+  </div>
+  <div class="exp-item reveal reveal-delay-1">
+    <div class="exp-number">361+</div>
+    <div class="exp-label">Omdömen</div>
+  </div>
+  <div class="exp-item reveal reveal-delay-2">
+    <div class="exp-number">100%</div>
+    <div class="exp-label">Passion</div>
+  </div>
+  <div class="exp-item reveal reveal-delay-3">
+    <div class="exp-number">∞</div>
+    <div class="exp-label">Nöjda kunder</div>
+  </div>
+</div>
+
+<!-- Gloss divider -->
+<div class="gloss-divider"></div>
+
+<!-- Reviews -->
+<section id="omdomen" class="reviews-section">
+  <div class="reviews-glow"></div>
+  <div class="reviews-glow-2"></div>
+  <div class="reviews-header">
+    <p class="section-eyebrow reveal">Omdömen</p>
+    <h2 class="section-title reveal reveal-delay-1">Vad mina kunder säger</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Alltid lika nöjd hos den enda jag litar på med mitt hår! Fantastisk på balayage och klippning, du är otroligt duktig Monica."</p>
+      <span class="review-author">Nöjd kund</span>
+    </div>
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Världens bästa frisör! Monica är fantastisk på alla sätt och vis, finns ingen bättre än henne. Alltid så nöjd med mitt hår!"</p>
+      <span class="review-author">Lojal kund</span>
+    </div>
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Mycket nöjd, fantastiska slingor! Finns nog ingen som Monica. Skapar alltid magi med mitt hår och blir nöjd varje gång."</p>
+      <span class="review-author">Kristina B.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="galleri" class="gallery-section">
+  <div class="gloss-overlay"></div>
+  <div class="gallery-header">
+    <p class="section-eyebrow reveal">Galleri</p>
+    <h2 class="section-title reveal reveal-delay-1">Skapade looks</h2>
+    <p class="reveal reveal-delay-2">Resultat från salongen — färg, klipp och styling.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gi-1 reveal"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Balayage</span></div></div>
+    <div class="gallery-item gi-2 reveal reveal-delay-1"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Färgning</span></div></div>
+    <div class="gallery-item gi-3 reveal reveal-delay-2"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Klippning</span></div></div>
+    <div class="gallery-item gi-4 reveal reveal-delay-3"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Styling</span></div></div>
+    <div class="gallery-item gi-5 reveal reveal-delay-4"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Slingor</span></div></div>
+    <div class="gallery-item gi-6 reveal reveal-delay-5"><div class="gallery-item-inner"></div><div class="gallery-item-overlay"><span class="gallery-item-tag">Bryn</span></div></div>
+  </div>
+  <div class="gallery-follow reveal">
+    <a href="https://www.instagram.com/hairbymoniicaa/" target="_blank">Följ @hairbymoniicaa på Instagram →</a>
+  </div>
+</section>
+
+<!-- Reels -->
+<section id="reels" class="reels-section">
+  <div class="reels-glow"></div>
+  <div class="reels-header">
+    <p class="section-eyebrow reveal">Resultat i rörelse</p>
+    <h2 class="section-title reveal reveal-delay-1">Se förvandlingarna</h2>
+    <p class="reveal reveal-delay-2">Klipp, färg och styling — direkt från stolen.</p>
+  </div>
+  <div class="reels-grid">
+    <div class="reel-card reveal">
+      <div class="reel-thumb reel-thumb-1"></div>
+      <div class="reel-play"><div class="reel-play-icon"></div></div>
+      <div class="reel-gloss"></div>
+      <div class="reel-label"><span>Förvandling</span></div>
+    </div>
+    <div class="reel-card reveal reveal-delay-1">
+      <div class="reel-thumb reel-thumb-2"></div>
+      <div class="reel-play"><div class="reel-play-icon"></div></div>
+      <div class="reel-gloss"></div>
+      <div class="reel-label"><span>Balayage</span></div>
+    </div>
+    <div class="reel-card reveal reveal-delay-2">
+      <div class="reel-thumb reel-thumb-3"></div>
+      <div class="reel-play"><div class="reel-play-icon"></div></div>
+      <div class="reel-gloss"></div>
+      <div class="reel-label"><span>Styling</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking CTA -->
+<section class="booking-section">
+  <div class="booking-decoration"></div>
+  <div class="booking-glow"></div>
+  <div class="sparkle-field" id="bookingSparkles"></div>
+  <div class="booking-content">
+    <p class="section-eyebrow reveal">Boka online</p>
+    <h2 class="section-title reveal reveal-delay-1">Dags att boka <em>din tid</em></h2>
+    <p class="booking-subtitle reveal reveal-delay-2">Boka din nästa behandling enkelt och smidigt via Bokadirekt. Jag ser fram emot att skapa något vackert tillsammans.</p>
+    <a href="https://www.bokadirekt.se/places/hair-by-monica-55949" target="_blank" class="booking-btn reveal reveal-delay-3">Boka via Bokadirekt</a>
+  </div>
+</section>
+
+<!-- Find Us -->
+<section id="hitta" class="find-section">
+  <div class="find-map">
+    <div class="find-map-content reveal">
+      <span class="find-map-pin">◎</span>
+      <h3>SalongZax</h3>
+      <p>Evenemangsgatan 10c<br>169 79 Solna</p>
+      <br>
+      <p><a href="https://maps.google.com/?q=Evenemangsgatan+10c+Solna" target="_blank">Öppna i Google Maps →</a></p>
+    </div>
+  </div>
+  <div class="find-info">
+    <div class="find-info-item reveal">
+      <div class="find-info-label">Plats</div>
+      <div class="find-info-value">SalongZax, Evenemangsgatan 10c, Solna</div>
+    </div>
+    <div class="find-info-item reveal reveal-delay-1">
+      <div class="find-info-label">Bokning</div>
+      <div class="find-info-value"><a href="https://www.bokadirekt.se/places/hair-by-monica-55949" target="_blank">bokadirekt.se</a></div>
+    </div>
+    <div class="find-info-item reveal reveal-delay-2">
+      <div class="find-info-label">Instagram</div>
+      <div class="find-info-value"><a href="https://www.instagram.com/hairbymoniicaa/" target="_blank">@hairbymoniicaa</a></div>
+    </div>
+    <div class="find-info-item reveal reveal-delay-3">
+      <div class="find-info-label">Konsultation</div>
+      <div class="find-info-value">DM via Instagram eller boka via Bokadirekt</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Hair by Monica</div>
+  <div class="footer-links">
+    <a href="#om">Om</a>
+    <a href="#tjanster">Tjänster</a>
+    <a href="#omdomen">Omdömen</a>
+    <a href="#galleri">Galleri</a>
+    <a href="#reels">Reels</a>
+    <a href="https://www.instagram.com/hairbymoniicaa/" target="_blank">Instagram</a>
+  </div>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">&copy; 2026 Hair by Monica. Alla rättigheter förbehållna.</p>
+</footer>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// Mobile menu
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+
+// Close mobile menu on link click
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Cursor glow (desktop only)
+const cursorGlow = document.getElementById('cursorGlow');
+if (window.matchMedia('(min-width: 1025px)').matches) {
+  document.addEventListener('mousemove', e => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top = e.clientY + 'px';
+    cursorGlow.classList.add('active');
+  });
+  document.addEventListener('mouseleave', () => {
+    cursorGlow.classList.remove('active');
+  });
+}
+
+// Generate sparkle particles
+function createSparkles(containerId, count) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (let i = 0; i < count; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.setProperty('--duration', (2 + Math.random() * 4) + 's');
+    sparkle.style.setProperty('--delay', (Math.random() * 5) + 's');
+    sparkle.style.width = (1.5 + Math.random() * 2.5) + 'px';
+    sparkle.style.height = sparkle.style.width;
+    container.appendChild(sparkle);
+  }
+}
+createSparkles('heroSparkles', 25);
+createSparkles('bookingSparkles', 15);
+</script>
+</body>
+</html>
